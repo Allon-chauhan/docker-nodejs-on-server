@@ -113,7 +113,7 @@
    version: '3'
    services:
      own-image:
-       image: [aws-account-id].dkr.ecr.[region].amazonaws.com/my-app:latest
+       image: [aws-account-id].dkr.ecr.[region].amazonaws.com/my-app:2.0
        ports:
          - "3000:3000"
      mongodb:
@@ -135,7 +135,12 @@
    ```
 
 ### ▶️ Running Docker Compose
-1. **Start creating containers** by running:
+1. Retrieve an authentication token and authenticate your Docker client to your registry using the below command
+   ```bash
+   aws ecr get-login-password --region [region] | \
+   docker login --username AWS --password-stdin [aws-account-id].dkr.ecr.[region].amazonaws.com
+   ```
+2. **Start creating containers** by running:
    ```bash
    docker-compose -f docker-compose.yaml up
    ```
